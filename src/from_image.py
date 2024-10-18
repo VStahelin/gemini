@@ -5,9 +5,7 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
-# Carregar variáveis de ambiente do arquivo .env
 load_dotenv()
-# Path to the Tesseract executable
 
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
@@ -41,8 +39,9 @@ result = model.generate_content(
         "The json needs to use a double quote for the keys and values.",
     ],
 )
+
 try:
-    parsed_json = json.dumps( json.loads(result.text), indent=4)
+    parsed_json = json.dumps(json.loads(result.text), indent=4)
     with open("from_image.json", "w") as f:
         f.write(parsed_json)
 except json.JSONDecodeError as e:
